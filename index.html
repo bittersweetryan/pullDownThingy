@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            .puller{
+                height: 31px;
+                background-color: rgb(44,44,44);
+                width: 60px;
+                position: fixed;
+                top: -6px;
+                right: 100px;
+                padding-top: 10px;
+                border-bottom-right-radius: 6px;
+                border-bottom-left-radius: 6px;
+               -webkit-box-shadow:  6px 6px 6px 0px rgba(0, 0, 0, .6);
+                box-shadow:  6px 6px 6px 0px rgba(0, 0, 0, .6);
+                cursor:pointer;
+            }
+            
+            .grip{
+                border-bottom: 2px solid white;
+                height: 2px;
+                width: 40px;
+                margin: auto;
+                margin-top: 2px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="pull">
+            I'm the stuff that should get pulled down.
+        </div>
+        <h1>
+            Lets create a pull down thingy.
+        </h1>
+        <script>
+            ;(function( ){
+                
+                var pullDownThingy = ( function( ){
+                    
+                    var puller = document.createElement( 'div' );
+                        content = null;
+                    
+                    puller.className = 'puller';
+                    
+                    var addTexture = function( ){
+                        
+                        var texture = document.createDocumentFragment( ),
+                            grip = document.createElement( 'div' );
+                        
+                        grip.className = 'grip';
+                        
+                        texture.appendChild( grip );
+                        texture.appendChild( grip.cloneNode( ) );
+                        texture.appendChild( grip.cloneNode( ) );
+                        
+                        puller.appendChild( texture );
+                    };
+                    
+                    var transformElement = function( ){
+                        
+                        console.log( content );
+                    };
+                    
+                    var clickHandler = function( e ){
+                        
+                        console.log( e );    
+                    };
+                    
+                    var addElement = function( ){
+                        
+                        puller.addEventListener( 'click', clickHandler );
+                        
+                        document.body.appendChild( puller );
+                    };
+                    
+                    
+                    var init = function( selector ){ 
+                        
+                        if( typeof selector === 'undefined' ){
+                            
+                            throw 'No selector defined';
+                        }
+                        
+                        content = document.querySelectorAll( selector );
+                        
+                        if( !content.length ){
+                            
+                            throw 'No element found';
+                        }
+                        
+                        transformElement( );
+                            
+                        addTexture( );
+                        
+                        addElement( );
+                    };
+                    
+                    return {
+                        init : init
+                    };
+                    
+                }( ) );
+                
+                pullDownThingy.init( '#pull' );
+                
+            }());
+                
+            
+            document.onreadystatechange = function( ){
+                
+                if( document.readyState == 'complete' ){
+                    
+                }
+            };
+        </script>
+    </body>
+</html>
