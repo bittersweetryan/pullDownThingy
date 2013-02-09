@@ -41,13 +41,19 @@
             Lets create a pull down thingy.
         </h1>
         <script>
-            ;(function( ){
-                
+            /*globals console:true*/
+            ;(function( window, undefined ){
+                'use strict';
+
                 var pullDownThingy = ( function( ){
                     
-                    var puller = document.createElement( 'div' );
+                    var puller = document.createElement( 'div' ),
                         contentContainer = null,
-                        containerHeight = null;
+                        containerHeight = null,
+                        _options = { },
+                        iterationTime,
+                        currentHeight = 0,
+                        animationLoop;
                     
                     puller.className = 'puller';
                     
@@ -74,9 +80,22 @@
                         contentContainer.style.top = ( containerHeight * -1 ) + 'px';
                     };
                     
+                    var animator = function(){
+                        ++currentHeight;
+
+                        contentContainer.style.top = currentHeight + 'px';
+
+                        if( currentHeight >= ( containerHeight * 2 ) ){
+                            console.log(contentContainer.style.top );
+                            contentContainer.style.top = containerHeight;
+
+                            window.clearInterval( animationLoop );
+                        }
+                    }
+                    
                     var clickHandler = function( e ){
                         
-                        console.log( e );    
+                        animationLoop = window.setInterval( animator, iterationTime );
                     };
                     
                     var addElement = function( ){
@@ -86,13 +105,25 @@
                         document.body.appendChild( puller );
                     };
                     
-                    
-                    var init = function( selector ){ 
-                        
+                    var init = function( selector, options ){ 
+
+                        var defaults = { speed : 400 },
+                            key;
+
                         if( typeof selector === 'undefined' ){
                             
                             throw 'No selector defined';
                         }
+
+                        for( key in defaults ){
+                            _options[ key ] = defaults[ key ];
+                        }
+
+                        for( key in options ){
+                            _options[ key ] = options[ key ];
+                        }
+
+                        var iterationTime = _options.speed / containerHeight;
                         
                         contentContainer = document.querySelectorAll( selector );
                         
@@ -116,15 +147,15 @@
                     
                 }( ) );
                 
-                pullDownThingy.init( '#pull' );
+                window.pullDownThingy = pullDownThingy;
                 
-            }());
+            }( window ) );
                 
             
             document.onreadystatechange = function( ){
                 
                 if( document.readyState == 'complete' ){
-                    
+                    pullDownThingy.init( '#pull' );
                 }
             };
         </script>
