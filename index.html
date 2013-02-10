@@ -91,7 +91,7 @@
                         ++currentHeight;
 
                         contentContainer.style.top = currentHeight + 'px';
-                        puller.style.top = currentHeight - 6 + 'px';
+                        puller.style.top = -6 + (containerHeight + currentHeight) + 'px';
 
                         if( currentHeight === 0 ){
                             window.clearInterval( animationLoop );
@@ -102,7 +102,7 @@
                         --currentHeight;
 
                         contentContainer.style.top = currentHeight + 'px';
-                        puller.style.top = currentHeight - 6 + 'px';
+                        puller.style.top = -6 + (containerHeight + currentHeight) + 'px';
 
                         if( currentHeight <= ( containerHeight * -1 ) ){
                             
