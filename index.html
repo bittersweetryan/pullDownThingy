@@ -9,7 +9,7 @@
                 width: 60px;
                 position: fixed;
                 top: -6px;
-                right: 100px;
+                right: 20px;
                 padding-top: 10px;
                 border-bottom-right-radius: 6px;
                 border-bottom-left-radius: 6px;
@@ -25,6 +25,8 @@
                 margin: auto;
                 margin-top: 2px;
                 padding: 0px;
+                -webkit-box-shadow: inset 1px 1px 1px 1px rgba(88,88,88, 1);
+                box-shadow: inset 1px 1px 1px 1px rgba(88,88,88, 1);
             }
 
             .content{
@@ -89,6 +91,10 @@
                         contentContainer.className = contentContainer.className + ' pulldown-content';
                         
                         contentContainer.style.top = ( containerHeight * -1 ) + 'px';
+
+                        //make the puller go below the content
+                        puller.style.zIndex = 9998;
+                        contentContainer.style.zIndex = 9999;
                     };
                     
                     var animateDown = function(){
