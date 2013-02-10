@@ -26,6 +26,10 @@
                 margin-top: 2px;
                 padding: 0px;
             }
+
+            .content{
+                color: white;
+            }
             
             .pulldown-content{
                 position: fixed;
@@ -39,7 +43,7 @@
         </style>
     </head>
     <body>
-        <div id="pull">
+        <div id="pull" class="content">
             I'm the stuff that should get pulled down.
         </div>
         <h1>
@@ -82,7 +86,7 @@
                         
                         currentHeight = containerHeight * -1;
 
-                        contentContainer.className = 'pulldown-content';
+                        contentContainer.className = contentContainer.className + ' pulldown-content';
                         
                         contentContainer.style.top = ( containerHeight * -1 ) + 'px';
                     };
