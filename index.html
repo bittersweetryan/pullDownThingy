@@ -29,6 +29,11 @@
             
             .pulldown-content{
                 position: fixed;
+                width: 100%;
+            }
+
+            #pull{
+                background-color: rgb(44,44,44);
             }
             
         </style>
@@ -75,27 +80,47 @@
                         
                         containerHeight = contentContainer.offsetHeight;
                         
+                        currentHeight = containerHeight * -1;
+
                         contentContainer.className = 'pulldown-content';
                         
                         contentContainer.style.top = ( containerHeight * -1 ) + 'px';
                     };
                     
-                    var animator = function(){
+                    var animateDown = function(){
                         ++currentHeight;
 
                         contentContainer.style.top = currentHeight + 'px';
+                        puller.style.top = currentHeight - 6 + 'px';
 
-                        if( currentHeight >= ( containerHeight * 2 ) ){
-                            console.log(contentContainer.style.top );
-                            contentContainer.style.top = containerHeight;
-
+                        if( currentHeight === 0 ){
                             window.clearInterval( animationLoop );
                         }
                     }
                     
+                    var animateUp = function(){
+                        --currentHeight;
+
+                        contentContainer.style.top = currentHeight + 'px';
+                        puller.style.top = currentHeight - 6 + 'px';
+
+                        if( currentHeight <= ( containerHeight * -1 ) ){
+                            
+                            contentContainer.style.top = containerHeight;
+                            window.clearInterval( animationLoop );
+                        }
+                    }
+
                     var clickHandler = function( e ){
-                        
-                        animationLoop = window.setInterval( animator, iterationTime );
+                        if( parseInt( contentContainer.style.top, 10 ) < 0 ){
+                            
+                            animationLoop = window.setInterval( animateDown, iterationTime );
+                        }
+                        else{
+                            
+                            animationLoop = window.setInterval( animateUp, iterationTime );
+
+                        }
                     };
                     
                     var addElement = function( ){
