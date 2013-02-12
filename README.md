@@ -9,7 +9,7 @@ Will use CSS3 animations and fallback to JavaScript animations ( in progress ).
 
 Include the pullDownWidget.css and pullDownWidget.js in your page:
 
-```
+```html
 <link rel="stylesheet" href="pullDownThingy.css">
 <script type="text/javascript" src="pullDownThingy.js"></script>
 ```
@@ -17,7 +17,7 @@ This will create a global varible called pullDownThingy.
 
 Then tell the thingy what content to use by using a CSS selector:
 
-```
+```javascript
 document.onreadystatechange = function( ){
                 
     if( document.readyState == 'complete' ){
