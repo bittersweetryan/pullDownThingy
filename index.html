@@ -135,7 +135,13 @@
                     
                     var addElement = function( ){
                         
-                        puller.addEventListener( 'click', clickHandler );
+                        if( document.addEventListener ){
+                            puller.addEventListener( 'click', clickHandler );    
+                        }
+                        else{
+                            puller.attachEvent( 'onclick', clickHandler );
+                        }
+                        
                         
                         document.body.appendChild( puller );
                     };
@@ -158,7 +164,7 @@
                             _options[ key ] = options[ key ];
                         }
 
-                        var iterationTime = _options.speed / containerHeight;
+                        iterationTime = _options.speed / containerHeight;
                         
                         contentContainer = document.querySelectorAll( selector );
                         
@@ -190,7 +196,7 @@
             document.onreadystatechange = function( ){
                 
                 if( document.readyState == 'complete' ){
-                    pullDownThingy.init( '#pull' );
+                    window.pullDownThingy.init( '#pull' );
                 }
             };
         </script>
